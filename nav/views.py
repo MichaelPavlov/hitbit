@@ -10,8 +10,8 @@ def home(request):
 	print "Hello1"
 	if request.session.get('address',False):
 		return render(request, 'index.html')
-	print request.session
-	print request.session.get('address',False)
+	a=request.session
+	b=request.session.get('address',False)
 	return render(request, 'work.html',{'id': request.session['address']})
 
 def session(request):
