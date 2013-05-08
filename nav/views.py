@@ -8,7 +8,8 @@ from nav.models import FormWithCaptcha
 
 def home(request):
 	print "Hello1"
-	if request.session.get('address',False):
+	if request.session.get('address',False) == False:
+		print "Hello Index"
 		return render(request, 'index.html')
 	a=request.session
 	b=request.session.get('address',False)
