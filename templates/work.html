@@ -42,10 +42,10 @@
               {% if id %}
                 <a class="label label-info label-large">{{ id }}</a>
               {% endif %}
-                {% if bit > 10 %}
+                {% if bit > 2 %}
                   <a href="#myModal" role="button" data-toggle="modal" class="btn btn-success">uBTC {{ bit }}</a>
                 {% else %}
-                  <a href="#" class="btn btn-warning" id="example" rel="tooltip" title="In order to reduce transactionfees, achieve at least 10uBTC">uBTC {{ bit }}</a>
+                  <a href="#" class="btn btn-warning" id="example" rel="tooltip" title="In order to reduce transaction fees: Cumulate at least 3uBTC">uBTC {{ bit }}</a>
                 {% endif %}
                   <script>
                   $(function ()
