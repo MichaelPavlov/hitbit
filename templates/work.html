@@ -22,7 +22,8 @@
     <!--[if lt IE 9]>
       <script src="../assets/js/html5shiv.js"></script>
     <![endif]-->
-
+    <script src="{{ STATIC_URL }}js/jquery-1.8.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -40,17 +41,21 @@
             <p class="pull-right">
               {% if id %}
                 <a class="label label-info label-large">{{ id }}</a>
-                              {% endif %}
+              {% endif %}
                 {% if bit > 10 %}
-                  <a class="btn btn-success">uBTC {{ bit }}</a>
+                  <a href="#myModal" role="button" data-toggle="modal" class="btn btn-success">uBTC {{ bit }}</a>
                 {% else %}
-                  <a id="example" class="btn btn-warning disabled" rel="popover" data-content="Not enough to redeem">uBTC {{ bit }}</a>
-                    <script>
-                    $(function ()
-                    { $("#example").popover({placement:'bottom'});
-                    });  
-                    </script>
+                  <a href="#" class="btn btn-warning" id="example" rel="tooltip" title="In order to reduce transactionfees, achieve at least 10uBTC">uBTC {{ bit }}</a>
                 {% endif %}
+                  <script>
+                  $(function ()
+                  { 
+                    $("#example").tooltip({
+                      'selector': '',
+                      'placement': 'bottom'
+                    });
+                  });
+                  </script>
             </p>
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -62,11 +67,28 @@
       </div>
     </div>
 
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Redeem BitCoins</h3>
+  </div>
+  <div class="modal-body">
+    <p>API Call</p>
+    <p>Address: {{ id }}</p>
+    <p>uBTC: {{ bit }}</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Send</button>
+  </div>
+</div>
+
     <div class="container">
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-        <h3>Earn {{ reward }} uBTC for this task</h3>
+        <h3>Earn 1{{ reward }} uBTC for this task</h3>
         <form method="POST" action="{% url 'submitwork' %}">
           {% csrf_token %}
           {{ form.as_p }}
@@ -81,11 +103,8 @@
       </footer>
 
     </div> <!-- /container -->
-
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ STATIC_URL }}js/jquery-1.8.0.min.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
   </body>
 </html>
